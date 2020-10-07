@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin: 200px 0 0 50px;
+            text-align: center;
+            color: #ccc;
+        }
+
+        ul {
+            list-style: none;
+            float: left;
+        }
+
+        li {
+            width: 150px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #124520;
+            border: 1px solid #eee;
+            position: relative;
+        }
+
+        li span {
+            position: absolute;
+            top: 0;
+            right: 10px;
+        }
+
+        li:hover {
+            background-color: #666;
+            transition: background-color .5s;
+        }
+
+        ul {
+            display: none;
+        }
+
+        ul.first {
+            display: block;
+        }
+
+        .relative {
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        .absolute {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul class="first">
+            <li>广东省
+                <span>></span>
+                <ul>
+                    <li>广州市
+                        <span>></span>
+                        <ul>
+                            <li>天河区
+                                <span>></span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>深圳市
+                        <span>></span>
+                        <ul>
+                            <li>南山区
+                                <span>></span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript">
+    let uls = document.querySelectorAll("ul");
+    let lis = document.querySelectorAll("li");
+    let liWidth = document.querySelector("#box ul").offsetWidth - 2
+
+    for (let i = uls.length - 1; i >= 0; i--) {
+        if (uls[i].parentNode.nodeName === "LI") {
+            uls[i].parentNode.classList.add("relative");
+            uls[i].classList.add("absolute");
+            uls[i].style.left = liWidth + "px";
+        }
+    }
+    for (var i = 0; i < lis.length; i++) {
+        if (lis[i].children.length === 1) {
+            lis[i].children[0].outerHTML = "";
+        };
+    }
+
+    for (let i = 0; i < lis.length; i++) {
+
+        lis[i].onmouseover = function () {
+            if (lis[i].children.length === 2) {
+                this.children[1].classList.remove("hide");
+                this.children[1].classList.add("show");
+            }
+        }
+        lis[i].onmouseout = function () {
+
+            if (lis[i].children.length === 2) {
+                this.children[1].classList.remove("show");
+                this.children[1].classList.add("hide");
+            }
+        }
+    }
+</script>
+
+</html>
